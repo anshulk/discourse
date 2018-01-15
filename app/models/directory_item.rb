@@ -9,7 +9,9 @@ class DirectoryItem < ActiveRecord::Base
                    :topic_count,
                    :post_count,
                    :posts_read,
-                   :days_visited]
+                   :days_visited,
+									 :solutions
+								 ]
   end
 
   def self.period_types
@@ -50,7 +52,7 @@ class DirectoryItem < ActiveRecord::Base
                       di.period_type = :period_type", period_type: period_types[period_type]
 
       # Create new records for users who don't have one yet
-      exec_sql "INSERT INTO directory_items(period_type, user_id, likes_received, likes_given, topics_entered, days_visited, posts_read, topic_count, post_count)
+      exec_sql "INSERT INTO directory_items(period_type, user_id, likes_received, likes_given, topics_entered, days_visited, posts_read, topic_count, post_count, solutions)
                 SELECT
                     :period_type,
                     u.id,
@@ -60,7 +62,8 @@ class DirectoryItem < ActiveRecord::Base
                     0,
                     0,
                     0,
-                    0
+                    0,
+										0
                 FROM users u
                 LEFT JOIN directory_items di ON di.user_id = u.id AND di.period_type = :period_type
                 WHERE di.id IS NULL AND u.id > 0 AND u.silenced_till IS NULL and u.active
@@ -75,6 +78,7 @@ class DirectoryItem < ActiveRecord::Base
       exec_sql "WITH x AS (SELECT
                     u.id user_id,
                     SUM(CASE WHEN p.id IS NOT NULL AND t.id IS NOT NULL AND ua.action_type = :was_liked_type THEN 1 ELSE 0 END) likes_received,
+										SUM(CASE WHEN p.id IS NOT NULL AND t.id IS NOT NULL AND ua.action_type = :solved_type THEN 1 ELSE 0 END) solutions,
                     SUM(CASE WHEN p.id IS NOT NULL AND t.id IS NOT NULL AND ua.action_type = :like_type THEN 1 ELSE 0 END) likes_given,
                     COALESCE((SELECT COUNT(topic_id) FROM topic_views AS v WHERE v.user_id = u.id AND v.viewed_at >= :since), 0) topics_entered,
                     COALESCE((SELECT COUNT(id) FROM user_visits AS uv WHERE uv.user_id = u.id AND uv.visited_at >= :since), 0) days_visited,
@@ -98,12 +102,14 @@ class DirectoryItem < ActiveRecord::Base
                days_visited = x.days_visited,
                posts_read = x.posts_read,
                topic_count = x.topic_count,
-               post_count = x.post_count
+               post_count = x.post_count,
+							 solutions = x.solutions
       FROM x
       WHERE
         x.user_id = di.user_id AND
         di.period_type = :period_type AND (
         di.likes_received <> x.likes_received OR
+				di.solutions <> x.solutions OR
         di.likes_given <> x.likes_given OR
         di.topics_entered <> x.topics_entered OR
         di.days_visited <> x.days_visited OR
@@ -118,6 +124,7 @@ class DirectoryItem < ActiveRecord::Base
                   was_liked_type: UserAction::WAS_LIKED,
                   new_topic_type: UserAction::NEW_TOPIC,
                   reply_type: UserAction::REPLY,
+									solved_type: UserAction::SOLVED,
                   regular_post_type: Post.types[:regular]
 
       if period_type == :all
@@ -126,7 +133,8 @@ class DirectoryItem < ActiveRecord::Base
         SET likes_given         = d.likes_given,
             likes_received      = d.likes_received,
             topic_count         = d.topic_count,
-            post_count          = d.post_count
+            post_count          = d.post_count,
+						solutions           = d.solutions
 
         FROM directory_items d
         WHERE s.user_id = d.user_id AND
@@ -134,7 +142,8 @@ class DirectoryItem < ActiveRecord::Base
           ( s.likes_given         <> d.likes_given OR
             s.likes_received      <> d.likes_received OR
             s.topic_count         <> d.topic_count OR
-            s.post_count          <> d.post_count
+            s.post_count          <> d.post_count OR
+						s.solutions           <> d.solutions
           )
 
 SQL

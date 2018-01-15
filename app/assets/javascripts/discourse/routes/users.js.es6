@@ -16,7 +16,7 @@ export default Discourse.Route.extend({
     if (isExiting) {
       controller.setProperties({
         period: "weekly",
-        order: "likes_received",
+        order: "solutions",
         asc: null,
         name: ""
       });
