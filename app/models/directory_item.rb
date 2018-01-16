@@ -10,7 +10,8 @@ class DirectoryItem < ActiveRecord::Base
                    :post_count,
                    :posts_read,
                    :days_visited,
-									 :solutions
+									 :solutions,
+									 :points
 								 ]
   end
 
@@ -52,7 +53,7 @@ class DirectoryItem < ActiveRecord::Base
                       di.period_type = :period_type", period_type: period_types[period_type]
 
       # Create new records for users who don't have one yet
-      exec_sql "INSERT INTO directory_items(period_type, user_id, likes_received, likes_given, topics_entered, days_visited, posts_read, topic_count, post_count, solutions)
+      exec_sql "INSERT INTO directory_items(period_type, user_id, likes_received, likes_given, topics_entered, days_visited, posts_read, topic_count, post_count, solutions, points)
                 SELECT
                     :period_type,
                     u.id,
@@ -63,6 +64,7 @@ class DirectoryItem < ActiveRecord::Base
                     0,
                     0,
                     0,
+										0,
 										0
                 FROM users u
                 LEFT JOIN directory_items di ON di.user_id = u.id AND di.period_type = :period_type
