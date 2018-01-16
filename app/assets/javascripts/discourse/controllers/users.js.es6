@@ -4,7 +4,7 @@ export default Ember.Controller.extend({
   application: Ember.inject.controller(),
   queryParams: ["period", "order", "asc", "name"],
   period: "weekly",
-  order: "solutions",
+  order: "points",
   asc: null,
   name: "",
 

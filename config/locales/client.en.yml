@@ -378,6 +378,7 @@ en:
       likes_given: "Given"
       likes_received: "Received"
       solutions: "Solutions"
+      points: "Points"
       topics_entered: "Viewed"
       topics_entered_long: "Topics Viewed"
       time_read: "Time Read"

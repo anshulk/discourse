@@ -10,18 +10,9 @@
       {{#conditional-loading-spinner condition=model.loading}}
         {{#if model.length}}
           <div class='total-rows'>{{i18n "directory.total_rows" count=model.totalRows}}</div>
-					<table>
-						<thead>
-							<th>&nbsp;</th>
-							{{directory-toggle field="points" order=order asc=asc icon="star"}}
-							{{directory-toggle field="solutions" order=order asc=asc icon="check-square"}}
-						</thead>
-						<tbody>
-							{{#each model as |item|}}
-								{{directory-item item=item showTimeRead=showTimeRead}}
-							{{/each}}
-						</tbody>
-					</table>
+          {{#each model as |item|}}
+            {{directory-item tagName="div" class="user" item=item showTimeRead=showTimeRead}}
+          {{/each}}
 
           {{conditional-loading-spinner condition=model.loadingMore}}
         {{else}}

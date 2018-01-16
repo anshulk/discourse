@@ -26,11 +26,11 @@
     td, th {
       padding: 0.5em;
       text-align: left;
-      border-bottom: 1px solid $primary-low; 
+      border-bottom: 1px solid $primary-low;
 
       .number, .time-read {
         font-size: $font-up-3;
-        color: $primary-medium; 
+        color: $primary-medium;
       }
     }
 
@@ -39,7 +39,7 @@
         background-color: dark-light-choose($highlight-low, $highlight-medium);
 
         .username a, .name, .title, .number, .time-read {
-          color: $primary-medium;           
+          color: $primary-medium;
         }
       }
     }
@@ -57,12 +57,16 @@
         color: green;
         margin-right: 0.5em;
       }
+			.d-icon-star {
+				color: gold;
+				margin-right: 0.5em;
+			}
       .d-icon-chevron-down, .d-icon-chevron-up {
         margin-left: 0.5em;
       }
 
       &:hover {
-        background-color: $primary-low; 
+        background-color: $primary-low;
       }
     }
   }

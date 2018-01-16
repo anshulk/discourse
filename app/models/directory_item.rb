@@ -127,6 +127,21 @@ class DirectoryItem < ActiveRecord::Base
 									solved_type: UserAction::SOLVED,
                   regular_post_type: Post.types[:regular]
 
+			exec_sql <<SQL
+			UPDATE directory_items
+			SET points = (
+				  post_count*1
+				+ likes_received*5
+				+ solutions*20
+
+				+ likes_given*0
+				+ topic_count*0
+				+ likes_given*0
+				+ topics_entered*0
+				+ posts_read*0
+			)
+SQL
+
       if period_type == :all
         exec_sql <<SQL
         UPDATE user_stats s
