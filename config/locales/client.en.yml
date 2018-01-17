@@ -2443,6 +2443,9 @@ en:
         dismiss_new_posts: '<b>x</b>, <b>r</b> Dismiss New/Posts'
         dismiss_topics: '<b>x</b>, <b>t</b> Dismiss Topics'
         log_out: '<b>shift</b>+<b>z</b> <b>shift</b>+<b>z</b> Log Out'
+      composing:
+        title: 'Composing'
+        return: '<b>shift</b>+<b>c</b> Return to composer'
       actions:
         title: 'Actions'
         bookmark_topic: '<b>f</b> Toggle bookmark topic'
@@ -2673,8 +2676,8 @@ en:
         agree_flag_restore_post_title: "Restore the post so that all users can see it."
         agree_flag: "Agree and Keep Post"
         agree_flag_title: "Agree with flag and keep the post unchanged."
-        defer_flag: "Ignore"
-        defer_flag_title: "Remove this flag; it requires no action at this time."
+        ignore_flag: "Ignore"
+        ignore_flag_title: "Remove this flag; it requires no action at this time."
         delete: "Delete"
         delete_title: "Delete the post this flag refers to."
         delete_post_defer_flag: "Delete Post and Ignore flag"
@@ -3256,6 +3259,7 @@ en:
             header: "Header"
             full_page: "Full Page"
             click_through_only: "All (click through only)"
+          header_search_results: "Header Search Results"
         logster:
           title: "Error Logs"
 

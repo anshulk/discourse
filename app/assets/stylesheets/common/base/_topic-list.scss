@@ -1,6 +1,6 @@
 .show-more {
   width: 100%;
-  z-index: 1;
+  z-index: z("base");
   &.has-topics {
     position: absolute;
     top: 7px;
@@ -114,7 +114,7 @@
   .topic-excerpt {
     font-size: $font-down-1;
     margin-top: 5px;
-    color: dark-light-choose($primary-medium, $secondary-medium);
+    color: dark-light-choose($primary-high, $secondary-high);
     word-wrap: break-word;
     line-height: $line-height-large;
     padding-right: 20px;
@@ -259,7 +259,7 @@ ol.category-breadcrumb {
   position: absolute;
   border: 1px solid $primary-low;
   background-color: $secondary;
-  z-index: 100;
+  z-index: z("dropdown");
 
   a.badge-category, a.badge-category-parent {
     line-height: $line-height-large;
@@ -286,71 +286,6 @@ ol.category-breadcrumb {
 
 .topic-statuses .fa {
   padding-right: 3px;
-}
-
-.period-chooser {
-  display: inline-block;
-  @include unselectable;
-
-  h2 {
-    float: left;
-    margin: 5px 0 10px;
-    .top-date-string {
-      font-size: $font-down-1;
-    }
-  }
-
-  .top-date-string {
-    color: dark-light-choose($primary-medium, $secondary-high);
-    font-weight: normal;
-    text-transform: uppercase;
-  }
-
-  button {
-    outline: 0;
-    background: transparent;
-    border: 0;
-    font-size: $font-up-3;
-    padding: 5px 10px 0 10px;
-    line-height: $line-height-large;
-  }
-
-  #period-popup {
-
-    @include unselectable;
-
-    font-size: $font-up-1;
-    border: 1px solid $primary-low;
-    padding: 5px;
-    background: $secondary;
-    position: absolute;
-    z-index: 999;
-    box-shadow: 0 2px 2px rgba(0,0,0, .4);
-
-    ul {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-
-      li {
-        margin: 0;
-        padding: 0;
-        font-weight: bold;
-        a, a:visited {
-          display: block;
-          padding: 5px;
-          color: $primary;
-        }
-        .top-date-string {
-          font-weight: normal;
-          font-size: $font-down-1;
-        }
-        &:hover {
-          background-color: $highlight-medium;
-        }
-      }
-    }
-  }
 }
 
 .top-title-buttons {
