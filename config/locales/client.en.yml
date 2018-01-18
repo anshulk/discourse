@@ -1953,15 +1953,18 @@ en:
       controls:
         reply: "begin composing a reply to this post"
         like: "like this post"
+        like-tm: " Like"
         has_liked: "you've liked this post"
         undo_like: "undo like"
         edit: "edit this post"
+        edit-tm: " Edit"
         edit_action: "Edit"
         edit_anonymous: "Sorry, but you need to be logged in to edit this post."
         flag: "privately flag this post for attention or send a private notification about it"
         delete: "delete this post"
         undelete: "undelete this post"
         share: "share a link to this post"
+        share-tm: " Share"
         more: "More"
         delete_replies:
           confirm: "Do you also want to delete the replies to this post?"

@@ -48,7 +48,8 @@ registerButton('like', attrs => {
 
   const button = {
     action: 'like',
-    icon: attrs.liked ? 'd-liked' : 'd-unliked',
+      label:'post.controls.like-tm',
+      icon: attrs.liked ? 'd-liked' : 'd-unliked',
     className
   };
 
@@ -94,7 +95,8 @@ registerButton('edit', attrs => {
       action: 'editPost',
       className: 'edit',
       title: 'post.controls.edit',
-      icon: 'pencil',
+        label:'post.controls.edit-tm',
+        icon: 'pencil',
       alwaysShowYours: true
     };
   }
@@ -119,6 +121,7 @@ registerButton('wiki-edit', attrs => {
       action: 'editPost',
       className: 'edit create',
       title: 'post.controls.edit',
+        label:'post.controls.edit-tm',
       icon: 'pencil-square-o',
       alwaysShowYours: true
     };
@@ -159,7 +162,8 @@ registerButton('share', attrs => {
     action: 'share',
     className: 'share',
     title: 'post.controls.share',
-    icon: 'link',
+    icon: 'share-alt',
+      label:'post.controls.share-tm',
     data: {
       'share-url': attrs.shareUrl,
       'post-number': attrs.post_number
