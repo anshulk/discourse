@@ -91,7 +91,7 @@
       background-color: $primary-low;
     }
   }
-  .drop-down-visible & {
+  .drop-down-mode & {
     .active .icon {
       position: relative;
       color: #7b7b7b;
@@ -100,10 +100,6 @@
       border-top: 1px solid $primary-low;
       border-left: 1px solid $primary-low;
       border-right: 1px solid $primary-low;
-
-      .flagged-posts {
-        right: 24px;
-      }
 
       &:after {
         display: block;

@@ -8,6 +8,7 @@ QUnit.module("lib:pretty-text");
 const rawOpts = {
   siteSettings: {
     enable_emoji: true,
+    enable_emoji_shortcuts: true,
     enable_mentions: true,
     emoji_set: 'emoji_one',
     highlighted_languages: 'json|ruby|javascript',
@@ -616,7 +617,18 @@ QUnit.test("censoring", assert => {
       },
       censoredWords: 'xyz*|plee+ase'
     },
-    "<p>Pleased to meet you, but ■■■■■■■■■ call me later, ■■■123</p>",
+    "<p>Pleased to meet you, but ■■■■ call me later, ■■■■123</p>",
+    "supports words as regular expressions");
+
+  assert.cookedOptions(
+    "Meet downtown in your town at the townhouse on Main St.",
+    { siteSettings: {
+        watched_words_regular_expressions: true,
+        censored_pattern: null
+      },
+      censoredWords: '\\btown\\b'
+    },
+    "<p>Meet downtown in your ■■■■ at the townhouse on Main St.</p>",
     "supports words as regular expressions");
 });
 

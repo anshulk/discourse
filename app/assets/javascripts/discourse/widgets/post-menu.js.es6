@@ -198,7 +198,7 @@ registerButton('bookmark', attrs => {
   }
 
   return {
-    id: attrs.bookmarked ? 'bookmark' : 'unbookmark',
+    id: attrs.bookmarked ? 'unbookmark' : 'bookmark',
     action: 'toggleBookmark',
     title: attrs.bookmarked ? "bookmarks.created" : "bookmarks.not_bookmarked",
     className,

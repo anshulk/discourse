@@ -153,7 +153,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  rescue_from Discourse::NotFound, PluginDisabled  do
+  rescue_from Discourse::NotFound, PluginDisabled, ActionController::RoutingError  do
     rescue_discourse_actions(:not_found, 404)
   end
 
@@ -237,13 +237,15 @@ class ApplicationController < ActionController::Base
   def set_locale
     if !current_user
       if SiteSetting.set_locale_from_accept_language_header
-        I18n.locale = locale_from_header
+        locale = locale_from_header
       else
-        I18n.locale = SiteSetting.default_locale
+        locale = SiteSetting.default_locale
       end
     else
-      I18n.locale = current_user.effective_locale
+      locale = current_user.effective_locale
     end
+
+    I18n.locale = I18n.locale_available?(locale) ? locale : :en
     I18n.ensure_all_loaded!
   end
 
@@ -393,10 +395,8 @@ class ApplicationController < ActionController::Base
   end
 
   def post_ids_including_replies
-    post_ids = params[:post_ids].map { |p| p.to_i }
-    if params[:reply_post_ids]
-      post_ids |= PostReply.where(post_id: params[:reply_post_ids].map { |p| p.to_i }).pluck(:reply_id)
-    end
+    post_ids  = params[:post_ids].map(&:to_i)
+    post_ids |= PostReply.where(post_id: params[:reply_post_ids]).pluck(:reply_id) if params[:reply_post_ids]
     post_ids
   end
 

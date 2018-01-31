@@ -36,6 +36,9 @@
         font-size: $font-up-3;
         color: $primary-medium;
       }
+      .time-read {
+        white-space: nowrap;
+      }
     }
 
     tr.me {
